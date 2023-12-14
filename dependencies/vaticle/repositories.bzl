@@ -44,11 +44,11 @@ def vaticle_typeql():
 
 def vaticle_typedb_protocol():
     # needed for workspace status
-    VATICLE_TYPEDB_PROTOCOL_VERSION = "2.25.2" # sync-marker: do not remove this comment, this is used for sync-dependencies by @vaticle_typedb_protocol
+    VATICLE_TYPEDB_PROTOCOL_VERSION = "132e9641fc6d8b7e9026fc8f4142594af0bd5ccc" # sync-marker: do not remove this comment, this is used for sync-dependencies by @vaticle_typedb_protocol
     git_repository(
         name = "vaticle_typedb_protocol",
         remote = "https://github.com/vaticle/typedb-protocol",
-        tag = VATICLE_TYPEDB_PROTOCOL_VERSION
+        commit = VATICLE_TYPEDB_PROTOCOL_VERSION,
     )
 
 def vaticle_typedb_behaviour():

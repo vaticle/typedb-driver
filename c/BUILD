@@ -38,6 +38,7 @@ clib_srcs = glob(["src/**/*.rs"])
 rust_static_library(
     name = "typedb_driver_clib",
     srcs = clib_srcs,
+    compile_data = ["src/VERSION"],
     aliases = {
         "//rust:typedb_driver_sync": "typedb_driver",
     },
@@ -65,6 +66,7 @@ rust_cbindgen(
 rust_shared_library(
     name = "typedb-driver-clib",
     srcs = clib_srcs,
+    compile_data = ["src/VERSION"],
     aliases = {
         "//rust:typedb_driver_sync": "typedb_driver",
     },
@@ -225,7 +227,7 @@ checkstyle_test(
         "src/**/*",
         "swig/*",
     ]),
-    exclude = [".clang-format"],
+    exclude = [".clang-format", "src/VERSION"],
     license_type = "apache-header",
 )
 

@@ -31,6 +31,9 @@ load("//tool/docs:rust/rules.bzl", "rust_docs", "rustdoc_to_adoc")
 load("//rust:docs_structure.bzl", "dir_mapping")
 
 typedb_driver_srcs = glob(["src/**/*.rs"])
+typedb_driver_compile_data = [
+    "src/VERSION",
+]
 typedb_driver_tags = ["crate-name=typedb-driver"]
 typedb_driver_deps = [
     "@crates//:chrono",
@@ -54,6 +57,7 @@ typedb_driver_proc_macro_deps = [
 rust_library(
     name = "typedb_driver",
     srcs = typedb_driver_srcs,
+    compile_data = typedb_driver_compile_data,
     deps = typedb_driver_deps,
     proc_macro_deps = typedb_driver_proc_macro_deps,
     tags = typedb_driver_tags,
@@ -63,6 +67,7 @@ rust_library(
 rust_library(
     name = "typedb_driver_sync",
     srcs = typedb_driver_srcs,
+    compile_data = typedb_driver_compile_data,
     deps = typedb_driver_deps,
     proc_macro_deps = typedb_driver_proc_macro_deps,
     tags = typedb_driver_tags,
@@ -123,6 +128,7 @@ checkstyle_test(
     ]),
     exclude = glob([
         "README.md",
+        "src/VERSION",
         "**/Cargo.toml",
         "**/Cargo.lock",
         "docs/**/*.adoc",
