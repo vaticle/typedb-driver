@@ -54,6 +54,7 @@ cc_binary(
     copts = cxxopts,
     linkopts = select({
         "@vaticle_bazel_distribution//platform:is_windows": ["ntdll.lib", "secur32.lib", "crypt32.lib", "ncrypt.lib"],
+        "@vaticle_bazel_distribution//platform:is_mac": ["-framework CoreFoundation", "-std=c++17"],
         "//conditions:default": [],
     }),
     local_defines = ["_COMPILING_TYPEDB_DRIVER"],
