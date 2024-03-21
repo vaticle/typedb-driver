@@ -103,7 +103,7 @@ public:
     JSON(JSON&&);
     JSON& operator=(JSON&&);
 
-    /*
+    /**
      * The JSONType of this JSON object
      * <h3>Examples</h3>
      * <pre>
@@ -172,6 +172,11 @@ public:
      * if this JSON object holds a string value, returns the value. Else throws an exception
      */
     const JSONString& asString() const;
+
+    /**
+     * Convert a JSON object to a JSON string.
+     */
+    const JSONString toString() const;
     const JSONNull& asNull() const;
 
 private:
@@ -198,6 +203,8 @@ private:
     JSON(JSONString&&);
     JSON(JSONMap&&);
     JSON(JSONArray&&);
+
+    void appendToString(std::stringstream& ss, const JSON& json) const;
 
     friend class JSONBuilder;
 };
