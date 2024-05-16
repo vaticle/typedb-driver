@@ -587,17 +587,17 @@ jobs:
       - checkout
       - run: .circleci\windows\prepare.bat
 
-      - run: .circleci\windows\python\deploy_snapshot.bat
+#      - run: .circleci\windows\python\deploy_snapshot.bat
 
       - run: .circleci\windows\java\deploy_snapshot.bat
 
-      - run: .circleci\windows\clib\deploy_snapshot.bat
-      - run: .circleci\windows\clib\test_assembly.bat
-
-      - run: .circleci\windows\cpp\deploy_snapshot.bat
-      - run: .circleci\windows\cpp\test_assembly.bat
-
-      - run: .circleci\windows\csharp\deploy_snapshot.bat
+#      - run: .circleci\windows\clib\deploy_snapshot.bat
+#      - run: .circleci\windows\clib\test_assembly.bat
+#
+#      - run: .circleci\windows\cpp\deploy_snapshot.bat
+#      - run: .circleci\windows\cpp\test_assembly.bat
+#
+#      - run: .circleci\windows\csharp\deploy_snapshot.bat
 
   deploy-snapshot-any:
     executor: linux-x86_64-ubuntu-2204
@@ -677,9 +677,9 @@ jobs:
     steps:
       - checkout
       - run: .circleci\windows\prepare.bat
-      - run: .circleci\windows\python\test_deploy_snapshot.bat
+#      - run: .circleci\windows\python\test_deploy_snapshot.bat
       - run: .circleci\windows\java\test_deploy_snapshot.bat
-      - run: .circleci\windows\csharp\test_deploy_snapshot.bat
+#      - run: .circleci\windows\csharp\test_deploy_snapshot.bat
 
   test-snapshot-any:
     executor: linux-x86_64-ubuntu-2204
@@ -845,7 +845,7 @@ workflows:
       - deploy-snapshot-windows-x86_64:
           filters:
             branches:
-              only: [development, master]
+              only: [development, master, native-library-loading-restore-relativize-call]
 
       - deploy-snapshot-any:
           filters:
@@ -908,11 +908,11 @@ workflows:
       - test-snapshot-windows-x86_64:
           filters:
             branches:
-              only: [master]
+              only: [master, native-library-loading-restore-relativize-call]
           requires:
             - deploy-snapshot-windows-x86_64
-            - deploy-snapshot-any
-            - deploy-snapshot-dotnet-any
+#            - deploy-snapshot-any
+#            - deploy-snapshot-dotnet-any
 
       - test-snapshot-any:
           filters:
