@@ -605,10 +605,10 @@ jobs:
       - checkout
       - install-bazel-apt:
           bazel-arch: amd64
-      - deploy-crate-snapshot-unix
+#      - deploy-crate-snapshot-unix
       - deploy-maven-snapshot-unix
-      - install-npm-apt
-      - deploy-npm-snapshot-unix
+#      - install-npm-apt
+#      - deploy-npm-snapshot-unix
 
   deploy-snapshot-dotnet-any:
     executor: linux-x86_64-ubuntu-2204
