@@ -23,9 +23,14 @@ import com.vaticle.typedb.common.collection.Pair;
 import com.vaticle.typedb.driver.common.exception.TypeDBDriverException;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -92,7 +97,16 @@ public class Loader {
     private static Path unpackNativeResources(URL resourceURL) throws IOException {
         Path tempPath = Files.createTempDirectory("typedb-driver-lib");
         tempPath.toFile().deleteOnExit();
-        Path newPath = tempPath.resolve(Path.of(resourceURL.getPath()).getFileName().toString());
+        Path newPath;
+        try {
+            URI asURI = resourceURL.toURI();
+            try (FileSystem fs = FileSystems.newFileSystem(asURI, Collections.emptyMap())) {
+                Path p = fs.provider().getPath(asURI);
+                newPath = tempPath.resolve(p.getParent().relativize(p).toString());
+            }
+        } catch (URISyntaxException e) {
+            throw new IOException(e);
+        }
         Files.copy(resourceURL.openStream(), newPath);
         newPath.toFile().deleteOnExit();
         return newPath;
