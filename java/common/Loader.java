@@ -23,7 +23,6 @@ import com.vaticle.typedb.common.collection.Pair;
 import com.vaticle.typedb.driver.common.exception.TypeDBDriverException;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -93,12 +92,7 @@ public class Loader {
     private static Path unpackNativeResources(URL resourceURL) throws IOException {
         Path tempPath = Files.createTempDirectory("typedb-driver-lib");
         tempPath.toFile().deleteOnExit();
-        Path newPath;
-        try {
-            newPath = tempPath.resolve(Path.of(resourceURL.toURI().getPath()).getFileName().toString());
-        } catch (URISyntaxException e) {
-            throw new IOException(e);
-        }
+        Path newPath = tempPath.resolve(DRIVER_JNI_LIBRARY_NAME);
         Files.copy(resourceURL.openStream(), newPath);
         newPath.toFile().deleteOnExit();
         return newPath;
